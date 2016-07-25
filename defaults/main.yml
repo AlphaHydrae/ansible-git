@@ -1,0 +1,3 @@
+---
+git_user: "{{ user | default(omit) }}"
+git_extras: true

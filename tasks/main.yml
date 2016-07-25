@@ -1,0 +1,26 @@
+---
+
+# Yum
+- name: yum install git-all
+  yum: pkg=git-all state=latest
+  when: ansible_pkg_mgr == 'yum'
+
+# Aptitude
+- name: apt-get install git-all
+  apt: pkg=git-all state=latest
+  when: ansible_pkg_mgr == 'apt'
+
+# Homebrew
+- name: Install Git
+  homebrew: name=git state=installed
+  become: true
+  become_user: "{{ git_user }}"
+  when: ansible_pkg_mgr == 'homebrew'
+- name: Install Git extras
+  homebrew: name={{ item }} state=installed
+  with_items:
+    - git-extras
+    - hub
+  become: true
+  become_user: "{{ git_user }}"
+  when: git_extras and ansible_pkg_mgr == 'homebrew'
