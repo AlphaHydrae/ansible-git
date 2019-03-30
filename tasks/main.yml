@@ -12,10 +12,11 @@
   become_user: "{{ git_homebrew_user }}"
   when: ansible_pkg_mgr == 'homebrew'
 - name: Install Git extras (Homebrew)
-  homebrew: name={{ item }} state=present
-  with_items:
-    - git-extras
-    - hub
+  homebrew:
+    name:
+      - git-extras
+      - hub
+    state: present
   become: true
   become_user: "{{ git_homebrew_user }}"
   when: git_extras and ansible_pkg_mgr == 'homebrew'
