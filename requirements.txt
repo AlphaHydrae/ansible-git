@@ -1,0 +1,2 @@
+# https://pip.pypa.io/en/stable/user_guide/#requirements-files
+molecule == 3.5.2

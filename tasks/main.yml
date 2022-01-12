@@ -1,17 +1,22 @@
 ---
 
 # Aptitude
-- name: Install Git (Aptitude)
-  apt: pkg=git-all state=present
+- name: Install Git with APT
+  apt:
+    name:
+    state: present
   when: ansible_pkg_mgr == 'apt'
 
 # Homebrew
-- name: Install Git (Homebrew)
-  homebrew: name=git state=present
+- name: Install Git with Homebrew
+  homebrew:
+    name: git
+    state: present
   become: true
   become_user: "{{ git_homebrew_user }}"
   when: ansible_pkg_mgr == 'homebrew'
-- name: Install Git extras (Homebrew)
+
+- name: Install Git extras with Homebrew
   homebrew:
     name:
       - git-extras
@@ -23,9 +28,11 @@
 
 # Yum
 - name: Install Git (Yum)
-  yum: pkg=git-all state=present
+  yum:
+    name: git-all
+    state: present
   when: ansible_pkg_mgr == 'yum'
 
 # Other package managers
 - fail: msg="{{ ansible_pkg_mgr }} is not a supported package manager (Aptitude, Homebrew or Yum are supported)"
-  when: ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'homebrew'
+  when: ansible_pkg_mgr != 'apt' and ansible_pkg_mgr != 'yum' and ansible_pkg_mgr != 'homebrew'
